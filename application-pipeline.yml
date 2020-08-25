@@ -32,7 +32,7 @@ stages:
   - job:
     steps:
     - task: AzureCLI@2
-      displayName: 'Azure CLI '
+      displayName: 'Update webapp image'
       inputs:
         azureSubscription: '$(subscription-name)'
         scriptType: pscore
