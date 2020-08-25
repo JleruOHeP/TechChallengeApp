@@ -34,7 +34,6 @@ stages:
         commandOptions: '-var="terraform_service_principal_client_id=$(terraform-runner-id)" -var="terraform_service_principal_object_id=$(terraform-runner-object-id)" -var="terraform_service_principal_client_secret=$(terraform-runner-password)" -var="subscription_id=$(azure-subscription-id)" -var="tenant_id=$(azure-tenant-id)"'
         environmentServiceNameAzureRM: '$(subscription-name)'
 
-stages:
 - stage: Update_Database
   jobs:
   - job:

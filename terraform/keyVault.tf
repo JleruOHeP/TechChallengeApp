@@ -27,6 +27,25 @@ resource "azurerm_key_vault_access_policy" "terraform_runner_access" {
   ]
 }
 
+resource "azurerm_key_vault_access_policy" "devops_service_connection" {
+  key_vault_id = azurerm_key_vault.default.id
+
+  tenant_id = var.tenant_id
+  object_id = "939cf90f-970a-461d-9851-97c305d0989e"
+
+  key_permissions = [
+    "get", "create", "delete", "list", "update"
+  ]
+
+  secret_permissions = [
+    "backup", "delete", "get", "list", "purge", "recover", "restore", "set"
+  ]
+
+  storage_permissions = [
+    "backup", "delete", "deletesas", "get", "getsas", "list", "listsas", "purge", "recover", "regeneratekey", "restore", "set", "setsas", "update"
+  ]
+}
+
 resource "azurerm_key_vault_secret" "sql_password" {
   name         = "psql-admin-password"
   value        = random_string.password.result
