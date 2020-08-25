@@ -21,7 +21,7 @@ stages:
         command: 'init'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
         backendServiceArm: '$(subscription-name)'
-        backendAzureRmResourceGroupName: 'devops'
+        backendAzureRmResourceGroupName: 'terraformstate'
         backendAzureRmStorageAccountName: 'mkservianterraformstate'
         backendAzureRmContainerName: 'servian-techtask'
         backendAzureRmKey: 'servian-techtask'
