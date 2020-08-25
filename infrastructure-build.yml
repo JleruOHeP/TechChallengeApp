@@ -33,3 +33,30 @@ stages:
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
         commandOptions: '-var="terraform_service_principal_client_id=$(terraform-runner-id)" -var="terraform_service_principal_object_id=$(terraform-runner-object-id)" -var="terraform_service_principal_client_secret=$(terraform-runner-password)" -var="subscription_id=$(azure-subscription-id)" -var="tenant_id=$(azure-tenant-id)"'
         environmentServiceNameAzureRM: '$(subscription-name)'
+
+stages:
+- stage: Update_Database
+  jobs:
+  - job:
+    steps:
+    - task: AzureKeyVault@1
+      displayName: 'Azure Key Vault: servian-techtask-kv'
+      inputs:
+        azureSubscription: '$(subscription-name)'
+        KeyVaultName: 'servian-techtask-kv'
+
+    - task: Docker@0
+      displayName: 'Run an image'
+      inputs:
+        azureSubscription: '$(subscription-name)'
+        azureContainerRegistry: '$(acr-details)'
+        action: 'Run an image'
+        imageName: 'jleruohep/techchallengeapp:latest'
+        envVars: |
+          VTT_DBPORT=5432
+          VTT_DBUSER=serviantechtaskadmin@servian-techtask-psql
+          VTT_DBHOST=servian-techtask-psql.postgres.database.azure.com
+          VTT_DBPASSWORD=$(psql-admin-password)
+          VTT_DBNAME=app
+        containerCommand: 'updatedb'
+        detached: false
