@@ -23,4 +23,17 @@ stages:
       inputs:
         azureSubscription: '$(subscription-name)'
         azureContainerRegistry: '$(acr-details)'
+        includeLatestTag: true
         action: 'Push an image'
+
+- stage: Update_WebApp
+  jobs:
+  - job:
+    steps:
+    - task: AzureCLI@2
+      displayName: 'Azure CLI '
+      inputs:
+        azureSubscription: 'Free Trial (30a8f8f4-525f-4e05-aaac-ac1938e714ba)'
+        scriptType: pscore
+        scriptLocation: inlineScript
+        inlineScript: 'az webapp config container set --docker-custom-image-name "DOCKER|serviantechtaskcr.azurecr.io/jleruohep/techchallengeapp:$(Build.BuildId)" --docker-registry-server-url "https://serviantechtaskcr.azurecr.io" --docker-registry-server-user serviantechtaskcr --name servian-techtask-appservice --resource-group servian-techtask'
