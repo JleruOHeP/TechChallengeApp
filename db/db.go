@@ -71,13 +71,11 @@ func RebuildDb(cfg Config) error {
 
 	query = fmt.Sprintf(`CREATE DATABASE %s
 WITH
-OWNER = %s
 ENCODING = 'UTF8'
 LC_COLLATE = 'en_US.utf8'
 LC_CTYPE = 'en_US.utf8'
-TABLESPACE = pg_default
 CONNECTION LIMIT = -1
-TEMPLATE template0;`, cfg.DbName, strings.Split(cfg.DbUser, "@")[0])
+TEMPLATE template0;`, cfg.DbName)
 
 	fmt.Println(query)
 
