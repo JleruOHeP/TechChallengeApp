@@ -37,4 +37,6 @@ stages:
         azureSubscription: '$(subscription-name)'
         scriptType: pscore
         scriptLocation: inlineScript
-        inlineScript: 'az webapp config container set --docker-custom-image-name "DOCKER|serviantechtaskcr.azurecr.io/jleruohep/techchallengeapp:$(Build.BuildId)" --docker-registry-server-url "https://serviantechtaskcr.azurecr.io" --docker-registry-server-user serviantechtaskcr --name servian-techtask-appservice --resource-group servian-techtask'
+        inlineScript: |
+          az webapp config container set --docker-custom-image-name "DOCKER|serviantechtaskcr.azurecr.io/jleruohep/techchallengeapp:$(Build.BuildId)" --docker-registry-server-url "https://serviantechtaskcr.azurecr.io" --docker-registry-server-user serviantechtaskcr --name servian-techtask-appservice --resource-group servian-techtask
+          az webapp config set --name servian-techtask-appservice --resource-group servian-techtask --startup-file serve
