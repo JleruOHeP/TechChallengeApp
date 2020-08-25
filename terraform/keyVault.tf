@@ -12,7 +12,7 @@ resource "azurerm_key_vault_access_policy" "terraform_runner_access" {
   key_vault_id = azurerm_key_vault.default.id
 
   tenant_id = var.tenant_id
-  object_id = var.terraform_service_principal_client_id
+  object_id = var.terraform_service_principal_object_id
 
   key_permissions = [
     "get", "create", "delete", "list", "update"

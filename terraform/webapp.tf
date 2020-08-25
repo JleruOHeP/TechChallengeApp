@@ -3,6 +3,7 @@ resource "azurerm_app_service_plan" "main" {
   location            = azurerm_resource_group.default.location
   resource_group_name = azurerm_resource_group.default.name
   kind                = "Linux"
+  reserved            = true
 
   sku {
     tier = "PremiumV2"
