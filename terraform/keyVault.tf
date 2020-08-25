@@ -31,7 +31,7 @@ resource "azurerm_key_vault_access_policy" "devops_service_connection" {
   key_vault_id = azurerm_key_vault.default.id
 
   tenant_id = var.tenant_id
-  object_id = "939cf90f-970a-461d-9851-97c305d0989e"
+  object_id = "ce373db5-2d11-4957-917e-3f358b039cd3"
 
   key_permissions = [
     "get", "create", "delete", "list", "update"
