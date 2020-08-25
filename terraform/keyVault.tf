@@ -32,5 +32,5 @@ resource "azurerm_key_vault_secret" "sql_password" {
   value        = random_string.password.result
   key_vault_id = azurerm_key_vault.default.id
 
-  depends_on = [ "azurerm_key_vault_access_policy.terraform_runner_access" ]
+  depends_on = [ azurerm_key_vault_access_policy.terraform_runner_access ]
 }

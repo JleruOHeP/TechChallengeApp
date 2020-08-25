@@ -1,5 +1,5 @@
 resource "azurerm_app_service_plan" "main" {
-  name                = "${var.applicationName}-asp"
+  name                = "${local.applicationName}-asp"
   location            = azurerm_resource_group.default.location
   resource_group_name = azurerm_resource_group.default.name
   kind                = "Linux"
@@ -11,7 +11,7 @@ resource "azurerm_app_service_plan" "main" {
 }
 
 resource "azurerm_app_service" "main" {
-  name                = "${var.applicationName}-appservice"
+  name                = "${local.applicationName}-appservice"
   location            = azurerm_resource_group.default.location
   resource_group_name = azurerm_resource_group.default.name
   app_service_plan_id = azurerm_app_service_plan.main.id

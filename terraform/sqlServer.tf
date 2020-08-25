@@ -22,10 +22,10 @@ resource "azurerm_postgresql_server" "psql_server" {
   ssl_enforcement_enabled      = true
 }
 
-resource "azurerm_postgresql_firewall_rule" "psql_server" {
+resource "azurerm_postgresql_firewall_rule" "sql_ffa_rule" {
   name                = "ffa"
   resource_group_name = azurerm_resource_group.default.name
-  server_name         = azurerm_postgresql_server.example.name
+  server_name         = azurerm_postgresql_server.psql_server.name
   start_ip_address    = "0.0.0.0"
   end_ip_address      = "255.255.255.255"
 }
