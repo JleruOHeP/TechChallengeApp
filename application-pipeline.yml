@@ -1,0 +1,25 @@
+trigger: master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+- group: Azure-Terraform-Details
+
+stages:
+- stage: Build-Image
+  jobs:
+  - job:
+    steps:
+    - task: Docker@0
+      displayName: 'Build an image'
+      inputs:
+        azureSubscription: '$(subscription-name)'
+        azureContainerRegistry: '$(acr-details)'
+
+    - task: Docker@0
+      displayName: 'Push an image'
+      inputs:
+        azureSubscription: '$(subscription-name)'
+        azureContainerRegistry: '$(acr-details)'
+        action: 'Push an image'

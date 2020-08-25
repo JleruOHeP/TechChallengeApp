@@ -1,0 +1,35 @@
+trigger: none
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+- group: Azure-Terraform-Details
+
+stages:
+- stage: Build_Infrastructure
+  jobs:
+  - job:
+    steps:
+    - task: TerraformInstaller@0
+      inputs:
+        terraformVersion: '0.12.29'
+    
+    - task: TerraformTaskV1@0
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
+        backendServiceArm: '$(subscription-name)'
+        backendAzureRmResourceGroupName: 'devops'
+        backendAzureRmStorageAccountName: 'mkservianterraformstate'
+        backendAzureRmContainerName: 'servian-techtask'
+        backendAzureRmKey: 'servian-techtask'
+    
+    - task: TerraformTaskV1@0
+      inputs:
+        provider: 'azurerm'
+        command: 'apply'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
+        commandOptions: '-var="terraform_service_principal_client_id=$(terraform-runner-id)" -var="terraform_service_principal_client_secret=$(terraform-runner-password)" -var="subscription_id=$(azure-subscription-id)" -var="tenant_id=$(azure-tenant-id)"'
+        environmentServiceNameAzureRM: '$(subscription-name)'
