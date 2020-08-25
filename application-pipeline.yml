@@ -8,7 +8,7 @@ variables:
 - group: Azure-Terraform-Details
 
 stages:
-- stage: Build-Image
+- stage: Build_Image
   jobs:
   - job:
     steps:
